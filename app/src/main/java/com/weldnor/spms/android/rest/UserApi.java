@@ -4,10 +4,11 @@ import com.weldnor.spms.android.entity.User;
 
 import java.util.List;
 
-import retrofit2.Call;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
+
 
 public interface UserApi {
     @GET("api/users")
-    Call<List<User>> getAllUsers();
+    Single<List<User>> getAllUsers();
 }
