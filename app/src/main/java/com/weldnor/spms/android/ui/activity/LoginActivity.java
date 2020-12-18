@@ -1,5 +1,6 @@
 package com.weldnor.spms.android.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.R;
 import com.weldnor.spms.android.di.component.DaggerAppComponent;
 import com.weldnor.spms.android.manager.AuthManager;
@@ -26,22 +28,23 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DaggerAppComponent.create().inject(this);
+        ((MyApplication) getApplication()).getAppComponent().inject(this);
 
         setContentView(R.layout.activity_login);
 
-        loginInput = (EditText) findViewById(R.id.input_login);
-        passwordInput = (EditText) findViewById(R.id.input_password);
+        loginInput = findViewById(R.id.input_login);
+        passwordInput = findViewById(R.id.input_password);
     }
 
     public void OnLoginButtonClick(View view) {
-        Log.i(TAG, String.valueOf(loginInput.getText()));
-        Log.i(TAG, String.valueOf(passwordInput.getText()));
-        try {
-            authManager.login(String.valueOf(loginInput.getText()), String.valueOf(passwordInput.getText()));
-        } catch (Exception e) {
+        String login = String.valueOf(loginInput.getText());
+        String password = String.valueOf(passwordInput.getText());
 
-        }
-
+        authManager.login(login, password).subscribe(token -> {
+                    Log.i(TAG, "token: " + token);
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    startActivity(intent);
+                },
+                throwable -> Log.i(TAG, "err", throwable));
     }
 }

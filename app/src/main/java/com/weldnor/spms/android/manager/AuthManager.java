@@ -7,6 +7,8 @@ import com.weldnor.spms.android.rest.dto.BasicAuthRequest;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.core.Single;
+
 public class AuthManager {
     private static final String TAG = "AuthManager";
 
@@ -16,15 +18,13 @@ public class AuthManager {
     private String token;
 
 
-    public void login(String username, String password) throws InterruptedException {
+    public Single<String> login(String username, String password) {
         BasicAuthRequest authRequest = new BasicAuthRequest(username, password);
-
-        loginApi.basicLogin(authRequest).subscribe((basicAuthResponse) -> {
-                    Log.i(TAG, String.valueOf(basicAuthResponse));
-                },
-                throwable -> {
-                    Log.e(TAG, "oops", throwable);
-                }).wait();
+        return loginApi.basicLogin(authRequest).map((basicAuthResponse) -> {
+            Log.i(TAG, String.valueOf(basicAuthResponse));
+            token = basicAuthResponse.getToken();
+            return token;
+        });
     }
 
     public String getToken() {
@@ -33,6 +33,10 @@ public class AuthManager {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public boolean isAuthorized() {
+        return token != null;
     }
 
     @Inject
