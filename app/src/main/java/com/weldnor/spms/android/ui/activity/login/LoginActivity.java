@@ -1,4 +1,4 @@
-package com.weldnor.spms.android.ui.activity;
+package com.weldnor.spms.android.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.R;
-import com.weldnor.spms.android.di.component.DaggerAppComponent;
 import com.weldnor.spms.android.manager.AuthManager;
+import com.weldnor.spms.android.ui.activity.home.HomeActivity;
 
 import javax.inject.Inject;
 

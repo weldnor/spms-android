@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Spmsandroid"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.HomeActivity"></activity>
-        <activity android:name=".ui.activity.LoginActivity" />
+        <activity android:name=".ui.activity.home.HomeActivity"></activity>
+        <activity android:name=".ui.activity.login.LoginActivity" />
     </application>
 
 </manifest>

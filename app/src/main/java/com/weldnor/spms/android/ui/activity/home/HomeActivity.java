@@ -1,4 +1,4 @@
-package com.weldnor.spms.android.ui.activity;
+package com.weldnor.spms.android.ui.activity.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 

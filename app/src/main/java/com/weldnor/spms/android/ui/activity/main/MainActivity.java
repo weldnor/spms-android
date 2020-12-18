@@ -1,4 +1,4 @@
-package com.weldnor.spms.android.ui.activity;
+package com.weldnor.spms.android.ui.activity.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.manager.AuthManager;
 import com.weldnor.spms.android.rest.GlobalRoleApi;
+import com.weldnor.spms.android.ui.activity.login.LoginActivity;
 
 import javax.inject.Inject;
 
