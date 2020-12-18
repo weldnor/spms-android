@@ -5,6 +5,7 @@ import android.util.Log;
 import com.weldnor.spms.android.manager.AuthManager;
 import com.weldnor.spms.android.rest.GlobalRoleApi;
 import com.weldnor.spms.android.rest.LoginApi;
+import com.weldnor.spms.android.rest.ProjectApi;
 import com.weldnor.spms.android.rest.UserApi;
 
 import javax.inject.Named;
@@ -95,6 +96,12 @@ public class RestServiceModule {
     @Singleton
     public GlobalRoleApi provideGlobalRoleApi(@Named("RetrofitWithAuth") Retrofit retrofit) {
         return retrofit.create(GlobalRoleApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public ProjectApi provideProjectApi(@Named("RetrofitWithAuth") Retrofit retrofit) {
+        return retrofit.create(ProjectApi.class);
     }
 
 }
