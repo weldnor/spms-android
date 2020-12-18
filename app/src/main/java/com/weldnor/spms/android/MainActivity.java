@@ -1,5 +1,6 @@
 package com.weldnor.spms.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.weldnor.spms.android.di.component.DaggerAppComponent;
 import com.weldnor.spms.android.manager.AuthManager;
 import com.weldnor.spms.android.rest.GlobalRoleApi;
+import com.weldnor.spms.android.ui.activity.LoginActivity;
 
 import javax.inject.Inject;
 
@@ -28,21 +30,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         DaggerAppComponent.create().inject(this);
 
-        authManager.setToken("...");
-
-        Log.i("MainActivity", authManager.getToken());
-        globalRoleApi.getAllGlobalRoles()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(globalRoles -> {
-                    Log.i("MainActivity", globalRoles.toString());
-                }, throwable -> {
-                    Log.i("MainActivity", "oops", throwable);
-                });
-
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

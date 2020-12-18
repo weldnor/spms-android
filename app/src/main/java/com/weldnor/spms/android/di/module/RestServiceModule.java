@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
@@ -31,7 +32,7 @@ public class RestServiceModule {
         return new Retrofit.Builder()
                 .baseUrl(BASE_API_URL)
                 .client(logClient)
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
@@ -45,7 +46,7 @@ public class RestServiceModule {
     ) {
         return new Retrofit.Builder()
                 .baseUrl(BASE_API_URL)
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .client(logClient)
                 .client(tokenClient)
                 .addConverterFactory(JacksonConverterFactory.create())
