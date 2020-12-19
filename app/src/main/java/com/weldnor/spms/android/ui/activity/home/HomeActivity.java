@@ -1,5 +1,6 @@
 package com.weldnor.spms.android.ui.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
@@ -12,6 +13,7 @@ import com.weldnor.spms.android.adapter.ProjectAdapter;
 import com.weldnor.spms.android.entity.Project;
 import com.weldnor.spms.android.rest.ProjectApi;
 import com.weldnor.spms.android.rest.UserApi;
+import com.weldnor.spms.android.ui.activity.project.ProjectActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
         projectApi.getAllProjects()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(projects -> {
-                    displayProjects(projects);
-                }, throwable -> {
+                .subscribe(this::displayProjects, throwable -> {
                     Log.e(TAG, "oops", throwable);
                 });
     }
@@ -52,9 +52,17 @@ public class HomeActivity extends AppCompatActivity {
     private void displayProjects(List<Project> projects) {
         ProjectAdapter projectAdapter = new ProjectAdapter(this, new ArrayList<>(projects));
         listView.setAdapter(projectAdapter);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Project currentProject = projects.get((int) id);
+            goToProject(currentProject.getProjectId());
+        });
     }
 
-    private void goToProject(){
-
+    private void goToProject(long projectId) {
+        Log.i(TAG, "goToProject: " + projectId);
+        Intent intent = new Intent(this, ProjectActivity.class);
+        intent.putExtra("projectId", projectId);
+        startActivity(intent);
     }
 }

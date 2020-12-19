@@ -5,6 +5,7 @@ import com.weldnor.spms.android.di.module.RestServiceModule;
 import com.weldnor.spms.android.ui.activity.home.HomeActivity;
 import com.weldnor.spms.android.ui.activity.login.LoginActivity;
 import com.weldnor.spms.android.ui.activity.main.MainActivity;
+import com.weldnor.spms.android.ui.activity.project.ProjectActivity;
 
 import javax.inject.Singleton;
 
@@ -18,4 +19,6 @@ public interface AppComponent {
     void inject(LoginActivity loginActivity);
 
     void inject(HomeActivity homeActivity);
+
+    void inject(ProjectActivity projectActivity);
 }
