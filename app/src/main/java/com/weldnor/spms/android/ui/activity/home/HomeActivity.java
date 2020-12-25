@@ -3,7 +3,10 @@ package com.weldnor.spms.android.ui.activity.home;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +16,7 @@ import com.weldnor.spms.android.adapter.ProjectAdapter;
 import com.weldnor.spms.android.entity.Project;
 import com.weldnor.spms.android.rest.ProjectApi;
 import com.weldnor.spms.android.rest.UserApi;
+import com.weldnor.spms.android.ui.activity.project.AddProjectActivity;
 import com.weldnor.spms.android.ui.activity.project.ProjectActivity;
 
 import java.util.ArrayList;
@@ -64,5 +68,20 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ProjectActivity.class);
         intent.putExtra("projectId", projectId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu_home, menu);// Menu Resource, Menu
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        Intent intent = new Intent(this, AddProjectActivity.class);
+        startActivity(intent);
+        return true; //FIXME
     }
 }

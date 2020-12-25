@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.R;
@@ -44,4 +47,6 @@ public class ProjectActivity extends AppCompatActivity {
                 });
 
     }
+
+
 }
