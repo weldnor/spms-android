@@ -1,6 +1,7 @@
 package com.weldnor.spms.android.rest;
 
 import com.weldnor.spms.android.entity.Project;
+import com.weldnor.spms.android.entity.Task;
 import com.weldnor.spms.android.rest.dto.NewProjectDto;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface ProjectApi {
 
     @PUT("api/projects")
     Single<Project> addProject(@Body NewProjectDto projectDto);
+
+    @GET("api/projects/{projectId}/tasks")
+    Single<List<Task>> getProjectTasks(@Path("projectId") long projectId);
 }

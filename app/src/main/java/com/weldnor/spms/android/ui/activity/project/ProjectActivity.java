@@ -2,16 +2,26 @@ package com.weldnor.spms.android.ui.activity.project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.R;
+import com.weldnor.spms.android.adapter.TaskAdapter;
+import com.weldnor.spms.android.adapter.TaskAdapter;
+import com.weldnor.spms.android.entity.Project;
+import com.weldnor.spms.android.entity.Task;
 import com.weldnor.spms.android.rest.ProjectApi;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,6 +33,7 @@ public class ProjectActivity extends AppCompatActivity {
 
     @Inject
     ProjectApi projectApi;
+    private ListView listView;
 
 
     @Override
@@ -34,6 +45,7 @@ public class ProjectActivity extends AppCompatActivity {
 
         TextView name = findViewById(R.id.name);
         TextView description = findViewById(R.id.description);
+        listView = findViewById(R.id.tasks_list);
 
         long projectId = getIntent().getExtras().getLong("projectId");
 
@@ -46,6 +58,30 @@ public class ProjectActivity extends AppCompatActivity {
                     Log.e(TAG, "onCreate: oops", throwable);
                 });
 
+        projectApi.getProjectTasks(projectId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayTasks, throwable -> {
+                    Log.e(TAG, "onCreate: oops", throwable);
+                });
+
+
+    }
+
+    private void displayTasks(List<Task> tasks) {
+        TaskAdapter taskAdapter = new TaskAdapter(this, new ArrayList<>(tasks));
+        listView.setAdapter(taskAdapter);
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Task currentTask = tasks.get((int) id);
+            goToTask(currentTask.getTaskId());
+        });
+    }
+
+    private void goToTask(Long taskId) {
+//        Log.i(TAG, "goToProject: " + projectId);
+//        Intent intent = new Intent(this, ProjectActivity.class);
+//        intent.putExtra("projectId", projectId);
+//        startActivity(intent);
     }
 
 
