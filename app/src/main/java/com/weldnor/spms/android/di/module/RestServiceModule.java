@@ -6,6 +6,7 @@ import com.weldnor.spms.android.manager.AuthManager;
 import com.weldnor.spms.android.rest.GlobalRoleApi;
 import com.weldnor.spms.android.rest.LoginApi;
 import com.weldnor.spms.android.rest.ProjectApi;
+import com.weldnor.spms.android.rest.TaskApi;
 import com.weldnor.spms.android.rest.UserApi;
 
 import javax.inject.Named;
@@ -102,6 +103,12 @@ public class RestServiceModule {
     @Singleton
     public ProjectApi provideProjectApi(@Named("RetrofitWithAuth") Retrofit retrofit) {
         return retrofit.create(ProjectApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public TaskApi provideTaskApi(@Named("RetrofitWithAuth") Retrofit retrofit) {
+        return retrofit.create(TaskApi.class);
     }
 
 }

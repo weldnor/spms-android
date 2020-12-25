@@ -1,24 +1,19 @@
 package com.weldnor.spms.android.ui.activity.project;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.weldnor.spms.android.MyApplication;
 import com.weldnor.spms.android.R;
 import com.weldnor.spms.android.adapter.TaskAdapter;
-import com.weldnor.spms.android.adapter.TaskAdapter;
-import com.weldnor.spms.android.entity.Project;
 import com.weldnor.spms.android.entity.Task;
 import com.weldnor.spms.android.rest.ProjectApi;
+import com.weldnor.spms.android.ui.activity.task.TaskActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,10 +73,10 @@ public class ProjectActivity extends AppCompatActivity {
     }
 
     private void goToTask(Long taskId) {
-//        Log.i(TAG, "goToProject: " + projectId);
-//        Intent intent = new Intent(this, ProjectActivity.class);
-//        intent.putExtra("projectId", projectId);
-//        startActivity(intent);
+        Log.i(TAG, "goToTask: " + taskId);
+        Intent intent = new Intent(this, TaskActivity.class);
+        intent.putExtra("taskId", taskId);
+        startActivity(intent);
     }
 
 

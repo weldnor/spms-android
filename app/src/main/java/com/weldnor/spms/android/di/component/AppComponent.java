@@ -7,6 +7,7 @@ import com.weldnor.spms.android.ui.activity.login.LoginActivity;
 import com.weldnor.spms.android.ui.activity.main.MainActivity;
 import com.weldnor.spms.android.ui.activity.project.AddProjectActivity;
 import com.weldnor.spms.android.ui.activity.project.ProjectActivity;
+import com.weldnor.spms.android.ui.activity.task.TaskActivity;
 
 import javax.inject.Singleton;
 
@@ -24,4 +25,6 @@ public interface AppComponent {
     void inject(ProjectActivity projectActivity);
 
     void inject(AddProjectActivity addProjectActivity);
+
+    void inject(TaskActivity taskActivity);
 }
