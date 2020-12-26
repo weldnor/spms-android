@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,9 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
         projectApi.getAllProjects()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::displayProjects, throwable -> {
-                    Log.e(TAG, "oops", throwable);
-                });
+                .subscribe(this::displayProjects, throwable -> Log.e(TAG, "oops", throwable));
     }
 
     private void displayProjects(List<Project> projects) {
@@ -59,27 +56,24 @@ public class HomeActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Project currentProject = projects.get((int) id);
-            goToProject(currentProject.getProjectId());
+            goToProjectActivity(currentProject.getProjectId());
         });
     }
 
-    private void goToProject(long projectId) {
-        Log.i(TAG, "goToProject: " + projectId);
+    private void goToProjectActivity(long projectId) {
         Intent intent = new Intent(this, ProjectActivity.class);
         intent.putExtra("projectId", projectId);
         startActivity(intent);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);// Menu Resource, Menu
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent = new Intent(this, AddProjectActivity.class);
         startActivity(intent);
         return true; //FIXME

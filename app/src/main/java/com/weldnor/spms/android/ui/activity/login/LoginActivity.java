@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         String password = String.valueOf(passwordInput.getText());
 
         authManager.login(login, password).subscribe(token -> {
-                    Log.i(TAG, "token: " + token);
                     Intent intent = new Intent(this, HomeActivity.class);
                     startActivity(intent);
                 },

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +27,6 @@ public class TaskActivity extends AppCompatActivity {
     @Inject
     UserApi userApi;
 
-    private ListView listView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +37,6 @@ public class TaskActivity extends AppCompatActivity {
 
         TextView name = findViewById(R.id.name);
         TextView description = findViewById(R.id.description);
-        TextView creatorUsername = findViewById(R.id.creator_username);
-        listView = findViewById(R.id.tasks_list);
 
         long taskId = getIntent().getExtras().getLong("taskId");
 
@@ -50,9 +45,7 @@ public class TaskActivity extends AppCompatActivity {
                 .subscribe(project -> {
                     name.setText(project.getName());
                     description.setText(project.getDescription());
-                }, throwable -> {
-                    Log.e(TAG, "onCreate: oops", throwable);
-                });
+                }, throwable -> Log.e(TAG, "onCreate: oops", throwable));
     }
 
     public void OnShareButtonClick(View view) {
