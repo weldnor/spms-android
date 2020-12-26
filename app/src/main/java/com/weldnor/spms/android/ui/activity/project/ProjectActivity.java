@@ -3,6 +3,8 @@ package com.weldnor.spms.android.ui.activity.project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -13,6 +15,7 @@ import com.weldnor.spms.android.R;
 import com.weldnor.spms.android.adapter.TaskAdapter;
 import com.weldnor.spms.android.entity.Task;
 import com.weldnor.spms.android.rest.ProjectApi;
+import com.weldnor.spms.android.ui.activity.task.AddTaskActivity;
 import com.weldnor.spms.android.ui.activity.task.TaskActivity;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class ProjectActivity extends AppCompatActivity {
     ProjectApi projectApi;
     private ListView listView;
 
+    private Long projectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +46,13 @@ public class ProjectActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         listView = findViewById(R.id.tasks_list);
 
-        long projectId = getIntent().getExtras().getLong("projectId");
+        projectId = getIntent().getExtras().getLong("projectId");
 
         projectApi.getProject(projectId)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(project -> {
                     name.setText(project.getName());
                     description.setText(project.getDescription());
-                }, throwable -> {
-                    Log.e(TAG, "onCreate: oops", throwable);
                 });
 
         projectApi.getProjectTasks(projectId)
@@ -58,8 +60,6 @@ public class ProjectActivity extends AppCompatActivity {
                 .subscribe(this::displayTasks, throwable -> {
                     Log.e(TAG, "onCreate: oops", throwable);
                 });
-
-
     }
 
     private void displayTasks(List<Task> tasks) {
@@ -68,12 +68,29 @@ public class ProjectActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Task currentTask = tasks.get((int) id);
-            goToTask(currentTask.getTaskId());
+            goToTaskActivity(currentTask.getTaskId());
         });
     }
 
-    private void goToTask(Long taskId) {
-        Log.i(TAG, "goToTask: " + taskId);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_project, menu);// Menu Resource, Menu
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        goToAddTaskActivity();
+        return true; //FIXME
+    }
+
+    private void goToAddTaskActivity() {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        intent.putExtra("projectId", projectId);
+        startActivity(intent);
+    }
+
+    private void goToTaskActivity(Long taskId) {
         Intent intent = new Intent(this, TaskActivity.class);
         intent.putExtra("taskId", taskId);
         startActivity(intent);

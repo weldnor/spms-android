@@ -25,6 +25,7 @@
         <activity android:name=".ui.activity.home.HomeActivity" />
         <activity android:name=".ui.activity.login.LoginActivity" />
         <activity android:name=".ui.activity.task.TaskActivity" />
+        <activity android:name=".ui.activity.task.AddTaskActivity" />
     </application>
 
 </manifest>

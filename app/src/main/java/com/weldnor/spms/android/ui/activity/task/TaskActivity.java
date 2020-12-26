@@ -56,9 +56,10 @@ public class TaskActivity extends AppCompatActivity {
     }
 
     public void OnShareButtonClick(View view) {
-        Intent intent = new Intent(); intent.setAction(Intent.ACTION_SEND);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, "Your text here" );
+        intent.putExtra(Intent.EXTRA_TEXT, "Your text here");
         startActivity(Intent.createChooser(intent, "Share via"));
     }
 

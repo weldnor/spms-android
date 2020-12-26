@@ -16,13 +16,14 @@ public class AuthManager {
     LoginApi loginApi;
 
     private String token;
-
+    private long userId;
 
     public Single<String> login(String username, String password) {
         BasicAuthRequest authRequest = new BasicAuthRequest(username, password);
         return loginApi.basicLogin(authRequest).map((basicAuthResponse) -> {
             Log.i(TAG, String.valueOf(basicAuthResponse));
             token = basicAuthResponse.getToken();
+            userId = basicAuthResponse.getUserId();
             return token;
         });
     }
@@ -31,8 +32,8 @@ public class AuthManager {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public long getUserId() {
+        return userId;
     }
 
     public boolean isAuthorized() {
